@@ -29,7 +29,7 @@ Movable Type 的 `extlib` 中已经包含了必需的 JSON：XS 版本。
 ## 安装
 
 
-1. 下载并解压本插件。
+1. [下载](https://github.com/easunlee/mt-plugin-qq-connect-commenters/archive/master.zip)并解压本插件。
 
 2. 复制(上传) `QQCommenters/mt-static` 下的内容到 `/path/to/mt/mt-static/`
 
@@ -99,3 +99,4 @@ Movable Type 的 `extlib` 中已经包含了必需的 JSON：XS 版本。
 ##On Github
 
  + [https://github.com/easunlee/mt-plugin-qq-connect-commenters](https://github.com/easunlee/mt-plugin-qq-connect-commenters)
+ + [下载地址](https://github.com/easunlee/mt-plugin-qq-connect-commenters/archive/master.zip)
