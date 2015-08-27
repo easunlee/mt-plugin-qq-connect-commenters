@@ -45,34 +45,34 @@ Movable Type 的 `extlib` 中已经包含了必需的 JSON：XS 版本。
 
 1. 用您的QQ账号登陆 [http://connect.qq.com/intro/login](http://connect.qq.com/intro/login) 并申请网站接入。 
 2. 详细描述您要接入的网站信息。请注意 **回调地址** 一定要填写为**您的Movable Type 后台 `CommentScript` 的完整地址，并且带上 `http://` 或者 `https://` 的前缀**。比如 (`http://your_domain/cgi-bin/mt/mt-comments.cgi`)。 <br >可以设置多个回调地址，用 分号 分开即可。 [QQ互联 （QQ Connect）](http://connect.qq.com) 的官方APP帮助文档 写的像浆糊一样，而且处处错误。这个地方官方文档写就是有问题。
-3. 腾讯 的QQ [登陆审核](http://wiki.connect.qq.com/%E7%BD%91%E7%AB%99%E6%8E%A5%E5%85%A5%E6%B5%81%E7%A8%8B)一个要求，就是登陆页面要设置 **醒目的QQ登录入口**。而我们的前端如果不做修改的话，会很简洁，这个就需要自己在前台放端代码。 简单的分享一下我的一些前端 JS 代码：<br />     
- 
+3. 腾讯 的QQ [登陆审核](http://wiki.connect.qq.com/%E7%BD%91%E7%AB%99%E6%8E%A5%E5%85%A5%E6%B5%81%E7%A8%8B)一个要求，就是登陆页面要设置 **醒目的QQ登录入口**。而我们的前端如果不做修改的话，会很简洁，这个就需要自己在前台放端代码。 简单的分享一下我的一些前端 JS 代码：<br />  
+
+
+##前端代码   
+
+ *function QQSignIn()* 
+
     function QQSignIn() {
-       var doc_url = document.URL;
-       doc_url = doc_url.replace(/#.+/, '');
-       var url = '<$mt:CGIPath$><$mt:CommentScript$>?__mode=login_external&key=QQ&blog_id=<$mt:BlogID$>';
-       if (is_preview) {
-     if ( document['comments_form'] ) {
-       var entry_id = document['comments_form'].entry_id.value;
-       url += '&entry_id=' + entry_id;
-     } else {
-       url += '&static=<$mt:BlogURL encode_url="1"$>';
+    var doc_url = document.URL;
+    doc_url = doc_url.replace(/#.+/, '');
+    var url = '<$mt:CGIPath$><$mt:CommentScript$>?__mode=login_external&key=QQ&blog_id=<$mt:BlogID$>';
+    if (is_preview) {
+    if ( document['comments_form'] ) {
+    var entry_id = document['comments_form'].entry_id.value;
+    url += '&entry_id=' + entry_id;
+    } else {url += '&static=<$mt:BlogURL encode_url="1"$>'; }
+    } else {url += '&static=' + encodeURIComponent(doc_url);
     }
-      } else {
-      url += '&static=' + encodeURIComponent(doc_url);
-     }
     mtClearUser();
     location.href = url;
     }
+    
+*function QQSignInOnClick()*
+
     function QQSignInOnClick(sign_in_element) {
     var el;
-    if (sign_in_element) {
-    // display throbber
-    el = document.getElementById(sign_in_element);
-    }
-    if (el)
-    el.innerHTML = 'Signing in... <span class="status-indicator">&nbsp;</span>';
-    
+    if (sign_in_element) { el = document.getElementById(sign_in_element);}
+    if (el) el.innerHTML = 'Signing in... <span class="status-indicator">&nbsp;</span>';
     mtClearUser(); // clear any 'anonymous' user cookie to allow sign in
     QQSignIn();
     return false;
