@@ -1,4 +1,5 @@
-# QQ Connect Commenters Plugin for Movable Type
+# QQ互联插件-用QQ账号登陆您的MT
+( QQ Connect Commenters Plugin for Movable Type )
 
 Authors:[ 路杨 (EasunLee)](http://easun.org/)
 Copyright 2015 [Easun.org](http://easun.org/).
@@ -95,5 +96,6 @@ Movable Type 的 `extlib` 中已经包含了必需的 JSON：XS 版本。
       cursor: pointer;
     }
 
-##END
+##On Github
 
+ + [https://github.com/easunlee/mt-plugin-qq-connect-commenters](https://github.com/easunlee/mt-plugin-qq-connect-commenters)
