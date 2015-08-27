@@ -1,0 +1,44 @@
+name: QQ Commenters
+id: QQCommenters
+key: QQCommenters
+description: <MT_TRANS phrase="Provides commenter registration through QQ Connect.">
+author_name: 'EasunLee'
+author_link: http://easun.org
+l10n_class: QQCommenters::L10
+version: 1.0
+
+commenter_authenticators:
+    QQ:
+        class: QQCommenters::Auth
+        label: QQ
+        logo: plugins/QQCommenters/signin_QQ.png
+        logo_small: plugins/QQCommenters/QQ_logo.png
+        login_form: |
+            <form id="QQ-signin-form" method="post" action="<mt:var name="script_url">">
+                <input type="hidden" name="__mode"   value="login_external">
+                <input type="hidden" name="blog_id"  value="<mt:var name="blog_id">">
+                <input type="hidden" name="entry_id" value="<mt:var name="entry_id">">
+                <input type="hidden" name="static"   value="<mt:var name="static" escape="html">">
+                <input type="hidden" name="key"      value="QQ">
+            </form>
+            <div>
+                <p class="hint"><p class="hint"><a href="http://connect.qq.com/" target="_blank">QQ Connect</a> is a free, open system providing you a central identity for posting comments on weblogs and logging into other websites with your <a href="http://im.qq.com/" target="_blank">QQ Account</a> based OAuth2.0. You can use it for free.</p>
+                <a href="#" onclick="document.getElementById('QQ-signin-form').submit()">
+                    <img src='<mt:var name="static_uri">plugins/QQCommenters/login-button.png' alt='Sign in'>
+                </img></a>
+                <div class="auth-option-info"><img src="<mt:var name="static_uri">images/comment/blue_moreinfo.png"> <a href="http://connect.qq.com/" target="_blank"> Learn more about QQ Connect.</a></div>
+            </div>
+        login_form_params: QQCommenters::Auth::commenter_auth_params
+        condition: QQCommenters::Auth::condition
+
+settings:
+    QQ_app_key:
+        scope: blog
+    QQ_app_secret:
+        scope: blog
+
+blog_config_template: blog_config_template.tmpl
+
+callbacks:
+    MT::PluginData::pre_save: $QQCommenters::QQCommenters::Auth::plugin_data_pre_save
+    save_config_filter.QQCommenters: $QQCommenters::QQCommenters::Auth::check_api_key_secret
