@@ -136,16 +136,16 @@ sub handle_sign_in {
     my $user_data ;
     my ($qq_id,$nickname,$figureurl);
 
+#     JS MODE # 没完全开放，需要配合 JSSDK来实现
+#     if ( $q->param("js_mode") && $q->param("openid") ) #JS MODE # 没完全开放，需要配合 JSSDK来实现
+#     {
+#        $qq_id    =  $q->param("openid");
+#        $nickname = $q->param("nickname");
+#        $figureurl= $q->param("figureurl_qq_1");  # figureurl QQ空间 30x30头像。  figureurl_qq_1 为QQ本身头像，但是是40x40 注释 By 路杨（easun.org）
+#     }
 
-     if ( $q->param("js_mode") && $q->param("openid") ) #JS MODE # 没完全开放，需要配合 JSSDK来实现
-     {
-        $qq_id    =  $q->param("openid");
-        $nickname = $q->param("nickname");
-        $figureurl= $q->param("figureurl_qq_1");  # figureurl QQ空间 30x30头像。  figureurl_qq_1 为QQ本身头像，但是是40x40 注释 By 路杨（easun.org）
-     }
-
-    else #unless ($qq_id)  #我们认为是普通模式
-    {
+#   else #unless ($qq_id)  #我们认为是普通模式
+#   {
          my $return_url = __create_return_url($app);
          ## 检测 state 是否一致，防止跨站漏洞  By 路杨###
         require Digest::MD5;
@@ -162,7 +162,6 @@ sub handle_sign_in {
           );
         }
        #################################
-
 
          my $success_code = $q->param("code");  # Authorization Code 第一次我们想要的， By 路杨
          my $ua = $app->new_ua( { paranoid => 1 } );
@@ -219,7 +218,7 @@ sub handle_sign_in {
               $nickname = $user_data->{nickname};
               $figureurl    = $user_data->{figureurl_qq_1};  # figureurl QQ空间 30x30头像。  figureurl_qq_1 为QQ本身头像，但是是40x40 注释 By 路杨（easun.org）
 
-      } # End unless openid
+#      } # End unless openid
  ################################################
 
     my $author_class = $app->model('author');
@@ -328,40 +327,6 @@ sub __check_api_configuration {
         $plugin->translate("Please enter your QQ App key and secret.") )
         unless ( $QQ_api_key and $QQ_api_secret );
     return 1;
-    ####### QQ APP 貌似并没有测试 appid 和 api_secret 是否合法的办法，所以，以下检测取消，直接检测是否有数值即可.注释 By 路杨（easun.org）
-=head 1
-    my $url = "https://graph.QQ.com/oauth/access_token?";
-    $url .= join( '&',
-        "client_id=$QQ_api_key",
-        "client_secret=$QQ_api_secret",
-        "grant_type=client_credentials",
-    );
-
-    my $ua       = $app->new_ua( { paranoid => 1 } );
-    my $response = $ua->get($url);
-    my $content  = $response->decoded_content();
-
-    if ( $response->is_error or $content !~ m/^access_token=/m ) {
-        if ( $content =~ m/^\{/ ) {
-
-            # QQ is returning JSON error response
-            require JSON;
-            my $j_msg = eval { JSON::from_json($content) };
-            if ( $j_msg and $j_msg->{error} ) {
-                my $error = $j_msg->{error};
-                $content = $error->{message};
-                $content .= " [" . $error->{type} . "]" if $error->{type};
-            }
-        }
-        return $plugin->error(
-            $plugin->translate(
-                "Could not verify this app with QQ: [_1]", $content
-            )
-        );
-    }
-
-    return 1;
-=cut
 }
 
 my $mt_support_save_config_filter;
