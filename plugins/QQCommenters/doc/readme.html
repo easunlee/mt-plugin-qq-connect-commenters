@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>QQ互联插件- 用QQ帐号登录您的 Movable Type 博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">QQ互联插件 for Movable Type </h1>
+      <h2 class="project-tagline">QQ Connect Commenters Plugin for Movable Type,用QQ帐号登录您的 Movable Type 博客 </h2>
+      <a href="https://github.com/easunlee/mt-plugin-qq-connect-commenters" class="btn">View on GitHub</a>
+      <a href="https://github.com/easunlee/mt-plugin-qq-connect-commenters/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/easunlee/mt-plugin-qq-connect-commenters/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h3>
+<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>概述</h3>
+
+<p>MT QQ互联插件 (QQ Connect Commenters plugin for Movable Type) 允许用户用 QQ 号码登陆你的 <a href="https://movabletype.org/">Movable Type</a> 博客。<br>
+本插件严格使用 <a href="http://connect.qq.com">QQ互联</a> 的 Open API 编写。安全可靠。
+它可以给您的博客带来良好的用户体验。
+一旦使用这个插件，评论者可以自动获取QQ昵称、头像等资源。</p>
+
+<p><strong>请注意:</strong> <a href="http://connect.qq.com">QQ互联 （QQ Connect）</a>官方使用的机制是审核制度，并不是使用这个插件就直接可以使用QQ登陆。 您需要去  <a href="http://connect.qq.com/intro/login">QQ互联 （QQ Connect）</a> 官方注册您使用本插件的网站并获取属于自己的 APPID 并提交审核。审核过程可能需要1周或者更长时间。</p>
+
+<p>关于 <a href="http://connect.qq.com">QQ互联 （QQ Connect）</a> 的注册，请 百度 之。或者读取官方资料： <a href="http://wiki.connect.qq.com/">http://wiki.connect.qq.com/</a>。</p>
+
+<h3>
+<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>运行环境</h3>
+
+<ul>
+<li>Movable Type 4.2 或者更高版本</li>
+<li>JSON::XS 2.0 或者更高版本</li>
+<li>jQuery  (非必需，建议)</li>
+</ul>
+
+<p>Movable Type 的 <code>extlib</code> 中已经包含了必需的 JSON：XS 版本。</p>
+
+<h3>
+<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>安装</h3>
+
+<ol>
+<li><p><a href="https://github.com/easunlee/mt-plugin-qq-connect-commenters/archive/master.zip">下载</a>并解压本插件。</p></li>
+<li><p>复制(上传) <code>QQCommenters/mt-static</code> 下的内容到 <code>/path/to/mt/mt-static/</code></p></li>
+<li><p>复制(上传) <code>QQCommenters/plugins</code> 下的内容到 <code>/path/to/mt/plugins/</code></p></li>
+<li><p>登陆您的 Movable Type 后台 -&gt; <code>Plugin Settings</code> 去设置您的 QQ <code>APP ID</code> 和 <code>APP KEY</code>。 <br></p></li>
+<li>在 后台-&gt;<code>Registration Settings</code> -&gt; <code>Authentication Methods</code> 中选启用 QQ 。<br></li>
+<li>在前台选择登陆，您会看见 QQ 登陆 的选项已经有了。 如果您的网站通过审核，可以之直接使用了。</li>
+</ol>
+
+<h3>
+<a id="about-QQ-Authentication" class="anchor" href="#about-QQ-Authentication" aria-hidden="true"><span class="octicon octicon-link"></span></a>关于 QQ互联 功能的申请</h3>
+<p>关于 QQ互联 功能的申请，简单减少一下流程：</p>
+
+<ol>
+<li>用您的QQ账号登陆 <a href="http://connect.qq.com/intro/login">http://connect.qq.com/intro/login</a> 并申请网站接入。 </li>
+<li>详细描述您要接入的网站信息。请注意 <strong>回调地址</strong> 一定要填写为<strong>您的Movable Type 后台 <code>CommentScript</code> 的完整地址，并且带上 <code>http://</code> 或者 <code>https://</code> 的前缀</strong>。比如 (<code>http://your_domain/cgi-bin/mt/mt-comments.cgi</code>)。 <br>可以设置多个回调地址，用 分号 分开即可。 <a href="http://connect.qq.com">QQ互联 （QQ Connect）</a> 的官方APP帮助文档 写的像浆糊一样，而且处处错误。这个地方官方文档写就是有问题。</li>
+<li>腾讯 的QQ <a href="http://wiki.connect.qq.com/%E7%BD%91%E7%AB%99%E6%8E%A5%E5%85%A5%E6%B5%81%E7%A8%8B">登陆审核</a>一个要求，就是登陆页面要设置 <strong>醒目的QQ登录入口</strong>。而我们的前端如果不做修改的话，会很简洁，这个就需要自己在前台放端代码。 简单的分享一下我的一些前端 JS 代码：
+<h4><a id="user-content-jscode" class="anchor" href="#user-content-jscode" aria-hidden="true"><span class="octicon octicon-link"></span></a>前端代码</h4>
+
+<p><em>function QQSignIn()</em> </p>
+
+<pre><code>function QQSignIn() {
+var doc_url = document.URL;
+doc_url = doc_url.replace(/#.+/, '');
+var url = '&lt;$mt:CGIPath$&gt;&lt;$mt:CommentScript$&gt;?__mode=login_external&amp;key=QQ&amp;blog_id=&lt;$mt:BlogID$&gt;';
+if (is_preview) {
+if ( document['comments_form'] ) {
+var entry_id = document['comments_form'].entry_id.value;
+url += '&amp;entry_id=' + entry_id;
+} else {url += '&amp;static=&lt;$mt:BlogURL encode_url="1"$&gt;'; }
+} else {url += '&amp;static=' + encodeURIComponent(doc_url);
+}
+mtClearUser();
+location.href = url;
+}
+</code></pre>
+
+<p><em>function QQSignInOnClick()</em></p>
+
+<pre><code>function QQSignInOnClick(sign_in_element) {
+var el;
+if (sign_in_element) { el = document.getElementById(sign_in_element);}
+if (el) el.innerHTML = 'Signing in... &lt;span class="status-indicator"&gt;&amp;nbsp;&lt;/span&gt;';
+mtClearUser(); // clear any 'anonymous' user cookie to allow sign in
+QQSignIn();
+return false;
+}
+</code></pre>
+
+<p>这样话，只用使用 <code>&lt;span class="QQ_signin_span" title="Sign in with your QQ Account" onclick="return QQSignInOnClick('signin-widget-content')"&gt;&lt;/span&gt;</code> 即可展示出 QQ 登陆按钮。 <br>
+当然，这样需要添加 CSS:</p>
+
+<pre><code>.QQ_signin_span {
+  background-image: url("/mt-static/plugins/QQCommenters/Connect_logo_3.png");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  overflow: hidden;
+  width: 120px;
+  display: inline-block;
+  height: 24px;
+  padding: 0px;
+  margin: 0px 2px;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+</code></pre>
+
+</li>
+</ol>
+
+<h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>Authors:<a href="http://easun.org/"> 路杨 (EasunLee)</a> 
+Copyright 2015 <a href="http://easun.org/">Easun.org</a>.
+License: Artistic, licensed under the same terms as Perl itself</p>
+
+<h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/easunlee/mt-plugin-qq-connect-commenters">Mt-plugin-qq-connect-commenters</a> is maintained by <a href="https://github.com/easunlee">easunlee</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
