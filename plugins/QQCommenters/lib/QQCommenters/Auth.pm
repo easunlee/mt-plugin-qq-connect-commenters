@@ -33,7 +33,7 @@ sub condition {
 sub commenter_auth_params {
     my ( $key, $blog_id, $entry_id, $static ) = @_;
     require MT::Util;
-    if ( $static =~ m/^http%3A%2F%2F/ ) {
+    if ( $static =~ m/^https?%3A%2F%2F/ ) {
         # the URL was encoded before, but we want the normal version
         $static = MT::Util::decode_url($static);
     }
@@ -55,7 +55,7 @@ sub __create_return_url {
     my $static = $q->param("static");
 
     require MT::Util;
-    if ( $static =~ m/^http%3A%2F%2F/ ) {
+    if ( $static =~ m/^https?%3A%2F%2F/ ) {
         # the URL was encoded before, but we want the normal version
         $static = MT::Util::decode_url($static);
     }
@@ -253,7 +253,7 @@ sub handle_sign_in {
      }
 
 ## __get_userpic 为远程的QQ头像下载在本地，并生成不同大小的缩略图，比较消耗资源，可以屏蔽掉。
- #   __get_userpic($cmntr, $figureurl);
+   __get_userpic($cmntr, $figureurl);
 
     $app->make_commenter_session($cmntr)
         or return $app->error(
