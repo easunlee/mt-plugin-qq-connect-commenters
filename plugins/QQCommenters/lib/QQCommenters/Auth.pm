@@ -136,18 +136,18 @@ sub handle_sign_in {
     my $user_data ;
     my ($qq_id,$nickname,$figureurl);
 
-#     JS MODE # Ã»ÍêÈ«¿ª·Å£¬ĞèÒªÅäºÏ JSSDKÀ´ÊµÏÖ
-#     if ( $q->param("js_mode") && $q->param("openid") ) #JS MODE # Ã»ÍêÈ«¿ª·Å£¬ĞèÒªÅäºÏ JSSDKÀ´ÊµÏÖ
+#     JS MODE # æ²¡å®Œå…¨å¼€æ”¾ï¼Œéœ€è¦é…åˆ JSSDKæ¥å®ç°
+#     if ( $q->param("js_mode") && $q->param("openid") ) #JS MODE # æ²¡å®Œå…¨å¼€æ”¾ï¼Œéœ€è¦é…åˆ JSSDKæ¥å®ç°
 #     {
 #        $qq_id    =  $q->param("openid");
 #        $nickname = $q->param("nickname");
-#        $figureurl= $q->param("figureurl_qq_1");  # figureurl QQ¿Õ¼ä 30x30Í·Ïñ¡£  figureurl_qq_1 ÎªQQ±¾ÉíÍ·Ïñ£¬µ«ÊÇÊÇ40x40 ×¢ÊÍ By Â·Ñî£¨easun.org£©
+#        $figureurl= $q->param("figureurl_qq_1");  # figureurl QQç©ºé—´ 30x30å¤´åƒã€‚  figureurl_qq_1 ä¸ºQQæœ¬èº«å¤´åƒï¼Œä½†æ˜¯æ˜¯40x40 æ³¨é‡Š By è·¯æ¨ï¼ˆeasun.orgï¼‰
 #     }
 
-#   else #unless ($qq_id)  #ÎÒÃÇÈÏÎªÊÇÆÕÍ¨Ä£Ê½
+#   else #unless ($qq_id)  #æˆ‘ä»¬è®¤ä¸ºæ˜¯æ™®é€šæ¨¡å¼
 #   {
          my $return_url = __create_return_url($app);
-         ## ¼ì²â state ÊÇ·ñÒ»ÖÂ£¬·ÀÖ¹¿çÕ¾Â©¶´  By Â·Ñî###
+         ## æ£€æµ‹ state æ˜¯å¦ä¸€è‡´ï¼Œé˜²æ­¢è·¨ç«™æ¼æ´  By è·¯æ¨###
         require Digest::MD5;
         my $md5_state = Digest::MD5::md5_hex($return_url);
         #return $app->errtrans($md5_state .'-VS-' .$q->param("state"))  ;
@@ -163,7 +163,7 @@ sub handle_sign_in {
         }
        #################################
 
-         my $success_code = $q->param("code");  # Authorization Code µÚÒ»´ÎÎÒÃÇÏëÒªµÄ£¬ By Â·Ñî
+         my $success_code = $q->param("code");  # Authorization Code ç¬¬ä¸€æ¬¡æˆ‘ä»¬æƒ³è¦çš„ï¼Œ By è·¯æ¨
          my $ua = $app->new_ua( { paranoid => 1 } );
 
          my $blog_id = $app->blog->id;
@@ -196,19 +196,19 @@ sub handle_sign_in {
                $access_token =~ s/\s//g;
                $access_token =~ s/&.*//;
 
-          $url  = "https://graph.qq.com/oauth2.0/me?access_token=$access_token"; #µÚ2´ÎÎÒÃÇÏëÒªµÄaccess_token£¬ By Â·Ñî
+          $url  = "https://graph.qq.com/oauth2.0/me?access_token=$access_token"; #ç¬¬2æ¬¡æˆ‘ä»¬æƒ³è¦çš„access_tokenï¼Œ By è·¯æ¨
           $response = $ua->get($url);
           return $app->errtrans("Invalid request.-[_1]", "Get openID not Success form QQ.com.")
                 unless $response->is_success;
 
-          ### »ñÈ¡ openid
+          ### è·å– openid
             my $data_tmps = $response->decoded_content();
                   $data_tmps =~ s/callback\(//g;
                   $data_tmps =~ s/\)\;//g;
            ###
             require JSON;
             my $user_data_temp = JSON::from_json( $data_tmps );
-            $qq_id    = $user_data_temp->{openid};  #µÚ3´ÎÎÒÃÇÏëÒªµÄopenid£¬ ×¢ÊÍ By Â·Ñî£¨easun.org£©
+            $qq_id    = $user_data_temp->{openid};  #ç¬¬3æ¬¡æˆ‘ä»¬æƒ³è¦çš„openidï¼Œ æ³¨é‡Š By è·¯æ¨ï¼ˆeasun.orgï¼‰
 
              $url = "https://graph.qq.com/user/get_user_info?access_token=$access_token&oauth_consumer_key=$QQ_api_key&openid=$qq_id";
              $response = $ua->get($url);
@@ -216,7 +216,7 @@ sub handle_sign_in {
                         unless $response->is_success;
               $user_data = JSON::from_json( $response->decoded_content() );
               $nickname = $user_data->{nickname};
-              $figureurl    = $user_data->{figureurl_qq_1};  # figureurl QQ¿Õ¼ä 30x30Í·Ïñ¡£  figureurl_qq_1 ÎªQQ±¾ÉíÍ·Ïñ£¬µ«ÊÇÊÇ40x40 ×¢ÊÍ By Â·Ñî£¨easun.org£©
+              $figureurl    = $user_data->{figureurl_qq_1};  # figureurl QQç©ºé—´ 30x30å¤´åƒã€‚  figureurl_qq_1 ä¸ºQQæœ¬èº«å¤´åƒï¼Œä½†æ˜¯æ˜¯40x40 æ³¨é‡Š By è·¯æ¨ï¼ˆeasun.orgï¼‰
 
 #      } # End unless openid
  ################################################
@@ -235,7 +235,7 @@ sub handle_sign_in {
             name        => $nickname,
             nickname    => $nickname,
             auth_type   => $auth_type,
-            hint         =>  $figureurl,   #ÎÒÃÇÓÃ·ÏÆúµÄ hint ×Ö¶ÎÀ´´æ´¢Ô¶³ÌÍ·ÏñÂ·¾¶£¬ µ±È»ÎÒÃÇÒ²¿ÉÒÔÖ±½ÓÏÂÔØµ½±¾µØ
+            hint         =>  $figureurl,   #æˆ‘ä»¬ç”¨åºŸå¼ƒçš„ hint å­—æ®µæ¥å­˜å‚¨è¿œç¨‹å¤´åƒè·¯å¾„ï¼Œ å½“ç„¶æˆ‘ä»¬ä¹Ÿå¯ä»¥ç›´æ¥ä¸‹è½½åˆ°æœ¬åœ°
         );
     }
 
@@ -252,7 +252,7 @@ sub handle_sign_in {
         $cmntr->save ;
      }
 
-## __get_userpic ÎªÔ¶³ÌµÄQQÍ·ÏñÏÂÔØÔÚ±¾µØ£¬²¢Éú³É²»Í¬´óĞ¡µÄËõÂÔÍ¼£¬±È½ÏÏûºÄ×ÊÔ´£¬¿ÉÒÔÆÁ±Îµô¡£
+## __get_userpic ä¸ºè¿œç¨‹çš„QQå¤´åƒä¸‹è½½åœ¨æœ¬åœ°ï¼Œå¹¶ç”Ÿæˆä¸åŒå¤§å°çš„ç¼©ç•¥å›¾ï¼Œæ¯”è¾ƒæ¶ˆè€—èµ„æºï¼Œå¯ä»¥å±è”½æ‰ã€‚
    __get_userpic($cmntr, $figureurl);
 
     $app->make_commenter_session($cmntr)
@@ -261,7 +261,7 @@ sub handle_sign_in {
     return $cmntr;
 }
 
-## OK, ÎÒÃÇ°ÑÔ¶³ÌµÄQQÍ·ÏñÏÂÔØÔÚ±¾µØ¡£¡£¡£¡£¡£ ×¢ÊÍ By Â·Ñî£¨easun.org£©###
+## OK, æˆ‘ä»¬æŠŠè¿œç¨‹çš„QQå¤´åƒä¸‹è½½åœ¨æœ¬åœ°ã€‚ã€‚ã€‚ã€‚ã€‚ æ³¨é‡Š By è·¯æ¨ï¼ˆeasun.orgï¼‰###
 sub __get_userpic {
     my ($cmntr,$figureurl) = @_;
 
