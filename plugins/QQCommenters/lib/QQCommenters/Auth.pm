@@ -217,6 +217,7 @@ sub handle_sign_in {
               $user_data = JSON::from_json( $response->decoded_content() );
               $nickname = $user_data->{nickname};
               $figureurl    = $user_data->{figureurl_qq_1};  # figureurl QQ空间 30x30头像。  figureurl_qq_1 为QQ本身头像，但是是40x40 注释 By 路杨（easun.org）
+              $figureurl =~ s{^http://}{https://};
 
 #      } # End unless openid
  ################################################
