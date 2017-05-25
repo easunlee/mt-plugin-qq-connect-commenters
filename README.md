@@ -8,7 +8,7 @@ License: Artistic, licensed under the same terms as Perl itself
 
 ## 概述
 
-MT QQ互联插件 (QQ Connect Commenters plugin for Movable Type) 允许用户用 QQ 号码登陆你的 [Movable Type](https://movabletype.org/) 博客。<br>
+MT QQ互联插件 (QQ Connect Commenters plugin for Movable Type) 允许用户用 QQ 号码登陆你的 [Movable Type](https://movabletype.org/) 博客。   
 本插件严格使用 [QQ互联](http://connect.qq.com) 的 Open API 编写。安全可靠。
 它可以给您的博客带来良好的用户体验。
 一旦使用这个插件，评论者可以自动获取QQ昵称、头像等资源。
@@ -53,6 +53,7 @@ Movable Type 的 `extlib` 中已经包含了必需的 JSON：XS 版本。
 ##前端代码   
 
  *function QQSignIn()* 
+ ```javascript
 
     function QQSignIn() {
     var doc_url = document.URL;
@@ -68,9 +69,12 @@ Movable Type 的 `extlib` 中已经包含了必需的 JSON：XS 版本。
     mtClearUser();
     location.href = url;
     }
+```
+
     
 *function QQSignInOnClick()*
 
+ ```javascript
     function QQSignInOnClick(sign_in_element) {
     var el;
     if (sign_in_element) { el = document.getElementById(sign_in_element);}
@@ -79,9 +83,12 @@ Movable Type 的 `extlib` 中已经包含了必需的 JSON：XS 版本。
     QQSignIn();
     return false;
     }
+```
 
 这样话，只用使用 `<span class="QQ_signin_span" title="Sign in with your QQ Account" onclick="return QQSignInOnClick('signin-widget-content')"></span>` 即可展示出 QQ 登陆按钮。 <br />
 当然，这样需要添加 CSS:
+
+```CSS
 
     .QQ_signin_span {
       background-image: url("/mt-static/plugins/QQCommenters/Connect_logo_3.png");
@@ -96,6 +103,7 @@ Movable Type 的 `extlib` 中已经包含了必需的 JSON：XS 版本。
       vertical-align: bottom;
       cursor: pointer;
     }
+```
 
 ##On Github
 
