@@ -50,7 +50,7 @@ Movable Type 的 `extlib` 中已经包含了必需的 JSON：XS 版本。
 3. 腾讯 的QQ [登陆审核](http://wiki.connect.qq.com/%E7%BD%91%E7%AB%99%E6%8E%A5%E5%85%A5%E6%B5%81%E7%A8%8B)一个要求，就是登陆页面要设置 **醒目的QQ登录入口**。而我们的前端如果不做修改的话，会很简洁，这个就需要自己在前台放端代码。 简单的分享一下我的一些前端 JS 代码：<br />  
 
 
-##前端代码   
+## 前端代码   
 
  *function QQSignIn()* 
  ```javascript
@@ -105,8 +105,8 @@ Movable Type 的 `extlib` 中已经包含了必需的 JSON：XS 版本。
     }
 ```
 
-##On Github
+## On Github
 
- + [https://github.com/easunlee/mt-plugin-qq-connect-commenters](https://github.com/easunlee/mt-plugin-qq-connect-commenters)
+ + <https://github.com/easunlee/mt-plugin-qq-connect-commenters>
  + [下载地址](https://github.com/easunlee/mt-plugin-qq-connect-commenters/archive/master.zip)
- + [http://git.easun.org/mt-plugin-qq-connect-commenters/](http://git.easun.org/mt-plugin-qq-connect-commenters/)
+ + <http://git.easun.org/mt-plugin-qq-connect-commenters/>
